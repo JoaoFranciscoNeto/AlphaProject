@@ -7,6 +7,18 @@ public abstract class Equipment : MonoBehaviour {
     [HideInInspector]
     public bool Swinging = false;
 
+    public string LeftAnimation
+    {
+        get;
+        set;
+    }
+
+    public string RightAnimation
+    {
+        get;
+        set;
+    }
+
     // Use this for initialization
     void Start () {
 

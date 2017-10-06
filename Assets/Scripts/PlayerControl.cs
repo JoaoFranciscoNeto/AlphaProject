@@ -10,14 +10,14 @@ public class PlayerControl : MonoBehaviour
     public float moveSpeed = 10f;
 
     private Animation _animation;
-    private Animator _animator;
+
+    public HandManager rightHandManager;
+    public HandManager leftHandManager;
 
     // Use this for initialization
     void Start()
     {
         _animation = GetComponent<Animation>();
-        _animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -45,12 +45,12 @@ public class PlayerControl : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                _animation.Play("1H_Sword_Swing_Left");
+                _animation.Play(leftHandManager.Equiped.LeftAnimation);
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                _animation.Play("1H_Sword_Swing_Right");
+                _animation.Play(rightHandManager.Equiped.RightAnimation);
             }
 
         }

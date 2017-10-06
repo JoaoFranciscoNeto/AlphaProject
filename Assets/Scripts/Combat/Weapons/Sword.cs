@@ -14,11 +14,13 @@ namespace Combat
                 return 10;
             }
         }
+        
 
         // Use this for initialization
         void Start()
         {
-
+            LeftAnimation = "1H_Sword_Swing_Left";
+            RightAnimation = "1H_Sword_Parry_Right";
         }
 
         // Update is called once per frame

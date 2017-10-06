@@ -5,7 +5,7 @@ using UnityEngine;
 public class HandManager : MonoBehaviour {
 
     public bool Swinging = false;
-    private Equipment Equiped;
+    public Equipment Equiped;
 
     void Start()
     {
