@@ -2,27 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour
+{
 
     public bool absoluteMovement = true;
 
     public float moveSpeed = 10f;
 
+    private Animation _animation;
     private Animator _animator;
 
-	// Use this for initialization
-	void Start () {
-
+    // Use this for initialization
+    void Start()
+    {
+        _animation = GetComponent<Animation>();
         _animator = GetComponent<Animator>();
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+        if (!_animation.isPlaying)
         {
-            _animator.applyRootMotion = true;
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var fwdInput = Input.GetAxis("Vertical");
             var sideInput = Input.GetAxis("Horizontal");
@@ -41,12 +45,15 @@ public class PlayerControl : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(0))
             {
-                _animator.SetTrigger("1H_Sword_Swing");
+                _animation.Play("1H_Sword_Swing_Left");
             }
-        } else
-        {
 
-            _animator.applyRootMotion = false;
+            if (Input.GetMouseButtonDown(1))
+            {
+                _animation.Play("1H_Sword_Swing_Right");
+            }
+
         }
+
     }
 }
