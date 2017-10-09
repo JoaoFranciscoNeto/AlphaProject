@@ -25,32 +25,39 @@ public class PlayerControl : MonoBehaviour
     {
 
 
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var fwdInput = Input.GetAxis("Vertical");
+        var sideInput = Input.GetAxis("Horizontal");
+
+        fwdInput = fwdInput * moveSpeed * Time.deltaTime;
+        sideInput = sideInput * moveSpeed * Time.deltaTime;
+
         if (!_animation.isPlaying)
         {
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            var fwdInput = Input.GetAxis("Vertical");
-            var sideInput = Input.GetAxis("Horizontal");
-
-            fwdInput = fwdInput * moveSpeed * Time.deltaTime;
-            sideInput = sideInput * moveSpeed * Time.deltaTime;
-
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - mousePos, transform.forward), Time.deltaTime * moveSpeed * 2);
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        } else
+        {
+            fwdInput *= .5f;
+            sideInput *= .5f;
+        }
 
-            if (absoluteMovement)
-                transform.Translate(sideInput, fwdInput, 0, Space.World);
-            else
-                transform.Translate(sideInput, fwdInput, 0, transform);
+        if (absoluteMovement)
+            transform.Translate(sideInput, fwdInput, 0, Space.World);
+        else
+            transform.Translate(sideInput, fwdInput, 0, transform);
 
+        if (!_animation.isPlaying)
+        {
 
             if (Input.GetMouseButtonDown(0))
             {
-                _animation.Play(leftHandManager.Equiped.LeftAnimation);
+                leftHandManager.Equiped.OnMainBtnDown(_animation);
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                _animation.Play(rightHandManager.Equiped.RightAnimation);
+                rightHandManager.Equiped.OnMainBtnDown(_animation);
             }
 
         }

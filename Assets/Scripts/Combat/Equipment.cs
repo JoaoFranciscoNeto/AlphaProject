@@ -7,23 +7,15 @@ public abstract class Equipment : MonoBehaviour {
     [HideInInspector]
     public bool Swinging = false;
 
-    public string LeftAnimation
-    {
-        get;
-        set;
-    }
-
-    public string RightAnimation
-    {
-        get;
-        set;
-    }
+    protected HandManager.Hand equipedOn;
 
     // Use this for initialization
     void Start () {
 
         // Prevent self collision
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), transform.parent.GetComponentInParent<Collider2D>());
+        
+        equipedOn = GetComponentInParent<HandManager>().hand;
     }
 	
 	// Update is called once per frame
@@ -31,13 +23,13 @@ public abstract class Equipment : MonoBehaviour {
 		
 	}
 
-    public abstract void OnMainBtnDown();
+    public abstract void OnMainBtnDown(Animation anim);
 
-    public abstract void OnMainBtnUp();
+    public abstract void OnMainBtnUp(Animation anim);
 
-    public abstract void OnSpecBtnDown();
+    public abstract void OnSpecBtnDown(Animation anim);
 
-    public abstract void OnSpecBtnUp();
+    public abstract void OnSpecBtnUp(Animation anim);
 
     public abstract void OnEquip();
 

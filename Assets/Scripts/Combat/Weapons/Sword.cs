@@ -14,21 +14,6 @@ namespace Combat
                 return 10;
             }
         }
-        
-
-        // Use this for initialization
-        void Start()
-        {
-            LeftAnimation = "1H_Sword_Swing_Left";
-            RightAnimation = "1H_Sword_Parry_Right";
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(Swinging &&
@@ -37,22 +22,23 @@ namespace Combat
                 collision.gameObject.GetInterfaceInParent<IDamagable>().TakeDamageFrom(this);
         }
 
-        public override void OnMainBtnDown()
+        public override void OnMainBtnDown(Animation anim)
+        {
+            
+            anim.Play(equipedOn == HandManager.Hand.RIGHT ? "1H_Sword_Swing_Right" : "1H_Sword_Swing_Left");
+        }
+
+        public override void OnMainBtnUp(Animation anim)
         {
             throw new NotImplementedException();
         }
 
-        public override void OnMainBtnUp()
+        public override void OnSpecBtnDown(Animation anim)
         {
             throw new NotImplementedException();
         }
 
-        public override void OnSpecBtnDown()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void OnSpecBtnUp()
+        public override void OnSpecBtnUp(Animation anim)
         {
             throw new NotImplementedException();
         }
