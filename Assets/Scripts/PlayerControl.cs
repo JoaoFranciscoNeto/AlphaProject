@@ -32,15 +32,14 @@ public class PlayerControl : MonoBehaviour
         fwdInput = fwdInput * moveSpeed * Time.deltaTime;
         sideInput = sideInput * moveSpeed * Time.deltaTime;
 
-        if (!_animation.isPlaying)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - mousePos, transform.forward), Time.deltaTime * moveSpeed * 2);
-            transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
-        } else
+        if (_animation.isPlaying)
         {
             fwdInput *= .5f;
             sideInput *= .5f;
         }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - mousePos, transform.forward), Time.deltaTime * moveSpeed * 2);
+        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
 
         if (absoluteMovement)
             transform.Translate(sideInput, fwdInput, 0, Space.World);
@@ -49,18 +48,33 @@ public class PlayerControl : MonoBehaviour
 
         if (!_animation.isPlaying)
         {
-
             if (Input.GetMouseButtonDown(0))
             {
                 leftHandManager.Equiped.OnMainBtnDown(_animation);
             }
-
             if (Input.GetMouseButtonDown(1))
             {
                 rightHandManager.Equiped.OnMainBtnDown(_animation);
             }
-
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                rightHandManager.Equiped.OnSpecBtnDown(_animation);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                leftHandManager.Equiped.OnSpecBtnDown(_animation);
+            }
         }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            rightHandManager.Equiped.OnSpecBtnUp(_animation);
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            leftHandManager.Equiped.OnSpecBtnUp(_animation);
+        }
+
 
     }
 }

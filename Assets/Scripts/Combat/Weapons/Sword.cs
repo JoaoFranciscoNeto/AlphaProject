@@ -24,23 +24,22 @@ namespace Combat
 
         public override void OnMainBtnDown(Animation anim)
         {
-            
             anim.Play(equipedOn == HandManager.Hand.RIGHT ? "1H_Sword_Swing_Right" : "1H_Sword_Swing_Left");
         }
 
         public override void OnMainBtnUp(Animation anim)
         {
-            throw new NotImplementedException();
+
         }
 
         public override void OnSpecBtnDown(Animation anim)
         {
-            throw new NotImplementedException();
+            anim.Play("1H_Sword_Parry_Start_Right");
         }
 
         public override void OnSpecBtnUp(Animation anim)
         {
-            throw new NotImplementedException();
+            anim.Play("1H_Sword_Parry_End_Right",PlayMode.StopAll);
         }
 
         public override void OnEquip()
